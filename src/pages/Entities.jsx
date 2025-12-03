@@ -1,24 +1,44 @@
-import { Link } from "react-router-dom";
+import { useEffect } from 'react';
+import CardList from '../components/CardList';
+import { useStore } from '../store/store';
 
 const Entities = () => {
+  const { products, isLoading, error, fetchProducts } = useStore();
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
   return (
-    <article className="py-5">
+    <section className="py-5">
       <div className="container">
-        <div className="text-center">
-          <h1 className="display-4 fw-bold">Catálogo de Productos</h1>
-          <p className="lead mt-3">Explora todos los productos disponibles en FakeStore.</p>
-        </div>
-        <div className="row g-4 mt-5">
-          {/* Aquí iría la lógica para listar los productos */}
-          <div className="col-12 text-center">
-            <Link to="/" className="btn btn-outline-primary">
-              Volver al inicio
-            </Link>
+        <header className="text-center mb-4">
+          <h1 className="display-6 fw-bold">Productos FakeStore</h1>
+          <p className="text-muted">Consumiendo datos de fakestoreapi.com</p>
+        </header>
+
+        {isLoading && (
+          <div className="text-center py-5">
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Cargando...</span>
+            </div>
           </div>
-        </div>
+        )}
+
+        {error && (
+          <div className="alert alert-danger d-flex align-items-center gap-3" role="alert">
+            <i className="bi bi-exclamation-triangle fs-3"></i>
+            <div>
+              <h5 className="mb-1">Error</h5>
+              <p className="mb-0">{error}</p>
+            </div>
+          </div>
+        )}
+
+        {!isLoading && !error && <CardList products={products} />}
       </div>
-    </article>
+    </section>
   );
-}
+};
 
 export default Entities;

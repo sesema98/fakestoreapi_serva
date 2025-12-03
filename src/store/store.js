@@ -9,10 +9,12 @@ export const useStore = create((set) => ({
     fetchProducts: async () => {
         set({isLoading: true, error: null});
         try {
-            const data = await fetch(fakeStoreApi.getProducts);
-            set({products: data, isLoading: false});
+            const data = await fakeStoreApi.getProducts();
+            set({products: data});
         } catch (error) {
-            set({error: error.message, isLoading: false});
+            set({error: error.message});
+        } finally {
+            set({isLoading: false});
         }
     },
 }));

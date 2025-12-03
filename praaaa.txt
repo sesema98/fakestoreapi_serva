@@ -101,3 +101,5 @@ Mantén SIEMPRE la app funcional.
 Al final de cada paso, escribe SIEMPRE:
 “Cuando termines este paso y hagas tu commit, respóndeme con cualquier mensaje y continuaré con el siguiente paso.”
 NO avances al siguiente paso hasta que yo responda.
+
+ahora estoy haciendo los links 
